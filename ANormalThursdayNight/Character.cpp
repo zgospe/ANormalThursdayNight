@@ -10,28 +10,28 @@ Character::Character(int health, size_t armor, size_t damage) :
             ac(armor),
             baseDam(damage)
 {
-    equip[0] = Item(baseDam);
-    equip[1] = Item(baseDam);
+    equip[0] = Item("Right", baseDam);
+    equip[1] = Item("Left", baseDam);
     equip[2] = Item(baseDam);
     equip[3] = Item(baseDam);
 }
 
-//puts 0-2 items in a player's equip slots
-void Character::randomEquipment() {
+//puts 2-4 items in a player's equip slots
+void Character::randomEquipment(size_t itemLevel) {
     size_t itemCount = (size_t)rand() % 20;
 
-        equip[3] = Item();
+        equip[3] = Item(itemLevel);
 
-        equip [2] = Item();
+        equip [2] = Item(itemLevel);
 
     if (itemCount > 15) {
-        equip [1] = Item();
+        equip [1] = Item(itemLevel);
     } else {
         equip[1].name = name + "'s Left " + equip[1].name;
     }
 
     if (itemCount == 20) {
-        equip[0] = Item();
+        equip[0] = Item(itemLevel);
     } else {
         equip[0].name = name + "'s Right " + equip[0].name;
     }
@@ -47,10 +47,6 @@ size_t Character::getAC() {
 
 size_t Character::attack(size_t weaponSlot) {
     return baseDam + equip[weaponSlot].getDam();
-}
-
-void Character::dropItem(size_t itemSlot) {
-    equip[itemSlot] = Item(baseDam);
 }
 
 void Character::equipItem(size_t itemSlot, Item a) {
@@ -74,6 +70,20 @@ void Character::showInventory() {
         std::cout << (i + 1) << ": " << equip[i].name
                   << " (Attack: " << equip[i].getDam() << ", Defense: "
                   << equip[i].getAC() << ")" << std::endl;
+    }
+}
+
+void Character::showDefenseInv() {
+    for (size_t i = 0; i < 4; i++) {
+        std::cout << (i + 1) << ": " << equip[i].name
+                  << " (Defense: " << equip[i].getAC() << ")" << std::endl;
+    }
+}
+
+void Character::showAttackInv() {
+    for (size_t i = 0; i < 4; i++) {
+        std::cout << (i + 1) << ": " << equip[i].name
+                  << " (Attack: " << equip[i].getDam() << ")" << std::endl;
     }
 }
 

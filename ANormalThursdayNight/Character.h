@@ -26,7 +26,7 @@ public:
 
     Character(int health, size_t armor, size_t damage);
 
-    void randomEquipment();
+    void randomEquipment(size_t itemLevel);
 
     int getHP();
 
@@ -40,11 +40,13 @@ public:
 
     size_t attack(size_t itemSlot);
 
-    void dropItem(size_t itemSlot);
-
     void equipItem(size_t itemSlot, Item a);
 
     void showInventory();
+
+    void showAttackInv();
+
+    void showDefenseInv();
 };
 
 

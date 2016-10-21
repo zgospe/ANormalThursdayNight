@@ -14,7 +14,7 @@ int main() {
     while (player.getHP() > 0) {
         Character enemy = Character((int)player.getXP() + 4, player.getXP() / 4, (player.getXP() / 2) + 2);
         enemy.name = "Demon " + std::to_string((player.getXP() + 1));
-        enemy.randomEquipment();
+        enemy.randomEquipment(player.getXP());
         if (fight(player, enemy)) {
             aftermath(player, enemy);
         }
@@ -29,7 +29,7 @@ bool fight(Character &player, Character &enemy) {
 
     while (player.getHP() > 0 && enemy.getHP() > 0) {
         std::cout << "Would you like to attack with:" << std::endl;
-        player.showInventory();
+        player.showAttackInv();
         size_t choice;
         std::cin >> choice;
         choice -= 1;
@@ -59,9 +59,10 @@ bool fight(Character &player, Character &enemy) {
             choice = (size_t) rand() % 4;
             size_t enemyDamage = enemy.attack(choice);
 
-            std::cout << enemy.name << " attacks with " << enemy.equip[choice].name << "." << std::endl;
+            std::cout << enemy.name << " attacks with " << enemy.equip[choice].name
+                      << " (Attack: " << enemy.equip[choice].getDam() << " )" << std::endl;
             std::cout << "How would you like to defend?" << std::endl;
-            player.showInventory();
+            player.showDefenseInv();
             size_t defend;
             std::cin >> defend;
             defend -= 1;
@@ -103,11 +104,6 @@ void intro(Character &player) {
     std::cout << "Suddenly, monsters come out ";
     std::cout << "of nowhere and attack " << player.name << "!" << std::endl;
     std::cout << std::endl;
-
-    player.equipItem(2, Item());
-    player.equipItem(3, Item());
-    player.equip[1].name = player.name + "'s Left " + player.equip[1].name;
-    player.equip[0].name = player.name + "'s Right " + player.equip[0].name;
 
     std::cout << "Luckily, " << player.name << " came prepared!" << std::endl;
     std::cout << player.name << " is equipped with: " << std::endl;

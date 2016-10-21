@@ -7,7 +7,7 @@
 #include <ctime>
 
 //randomly generates an item
-Item::Item() : dam(size_t(rand() % 3)), ac(1), uses(3)
+Item::Item(size_t itemLevel) : dam(itemLevel / 2), ac(itemLevel / 3), uses(3)
 {
     //Choose the base item name
     size_t base = rand() % BASENAMESSIZE;
@@ -78,16 +78,14 @@ Item::Item() : dam(size_t(rand() % 3)), ac(1), uses(3)
     }
 }
 
+//returns the damage value of the item
 size_t Item::getDam() {
     return dam;
 }
 
+//returns the armor value of the item
 size_t Item::getAC() {
     return ac;
-}
-
-int Item::getUses() {
-    return uses;
 }
 
 void Item::useItem() {
@@ -109,26 +107,34 @@ void Item::breakItem() {
     name = "Broken " + name;
 }
 
-//for empty weapon slots
-Item::Item(size_t fistDamage) : name("Fist"),
+//for empty weapon slots, makes a left or right fist
+//must specify Left or Right in the string
+Item::Item(std::string leftorright, size_t fistDamage) :
+                                name(leftorright + " Fist"),
                                 dam(fistDamage),
-                                uses(5),
-                                ac(0)
+                                uses(3),
+                                ac(0),
+                                itemLevel(fistDamage)
 {
 }
 
-//for empty bag slots
-Item::Item(std::string none) : name("Nothing"),
-                               dam(0),
-                               uses(40),
-                               ac(0)
+void Item::baseNameModifier(size_t baseName) {
+    //Choose the base item name
+    size_t base = rand() % BASENAMESSIZE;
+    name = BASENAMES[base];
 
-{
-}
+    //Give basics stats dependent
+    //on the base name;
 
-Item::Item(const Item &a) : name(a.name),
-                     dam(a.dam),
-                     uses(a.uses),
-                     ac(a.ac)
-{
+    //
+    if (base == 0 || base == 1
+        || base == 2 || base == 10
+        || base == 14 || base == 15) {
+        dam += size_t(rand() % 3) + 2;
+    } else if (base == 3  || base == 4
+               || base == 6 || base == 11
+               || base == 13) {
+        dam += rand() % 3;
+        ac = size_t(rand() % 5) + 5;
+    }
 }

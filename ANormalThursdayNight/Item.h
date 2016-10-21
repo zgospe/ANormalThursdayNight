@@ -14,10 +14,22 @@
 #include <string>
 #include <random>
 
-const std::string BASENAMES[16] = {"Sword", "Lance", "Spear", "Shield", "Armor",
-        "Torch", "Boots", "Femur", "Severed Head", "Stale Bread", "Bow",
-                                   "Glasses", "Skeleton Key", "Bucket", "Thumbtack", "Pistol"};
-const size_t BASENAMESSIZE = 16;
+//Name arrays used to randomly generate names for items
+//BaseNames key: (80 Names)
+//First 32 are mainly weapons growing in potential strength,
+//next 32 are mainly armors growing in potential armor,
+//next 16 are miscellaneous growing in both.
+const size_t BASENAMESSIZE = 80;
+const std::string BASENAMES[BASENAMESSIZE] = {"Pillow", "Severed Head", "Thumbtack", "Stale Bread", "Pencil", "Tennis Ball",
+                                  "Stone", "Fly Swatter", "Baseball Bat", "Guitar", "Waffle Iron", "Saxophone",
+                                  "Bowling Ball", "Whip", "Brass Knuckles", "Steak Knife", "Tazer", "Pickaxe",
+                                  "Mace", "Sword", "Lance", "Rapier", "Broadsword", "Pistol", "Musket", "Rifle",
+                                  "Holy Cross", "Holy Hand Grenade", "Sniper Rifle", "Lazer Gun", "RPG Launcher",
+                                    "Holy Bible", "Pizza Box", "Sweater", "Boxers", "Shorts", "Sweatpants", "Bucket",
+                                    "Scarf", "Raincoat", "Trench Coat", "Leather Jacket", "Board", "Medal of Honor",
+                                    "Plastic Cup", "Umbrella", "Car Door", "Wooden Shield", "Leather Shield", "Shield",
+                                    "Helmet", "Metal Boots", "Chain Mail", "Plate Mail", "Bulletproof Vest", "Flak Jacket",;
+
 
 const std::string PREFIX[9] = {"Bent ", "Powerful ", "Glowing ", "Durable ",
                                "Protector's ", "Gladiator's ", "Short ", "Stout ", "Shiny "};
@@ -35,20 +47,23 @@ private:
     size_t dam;
     size_t ac;
     int uses;
+    size_t itemLevel;
+
+    //Breaks the item, adds the "Broken"
+    //modifier to the beginning of the item
+    //and cuts all stats in half.
+    void breakItem();
+
+    void baseNameModifier(size_t baseName);
 
 public:
     std::string name;
 
-    //generates a random item
-    Item();
-
-    Item(const Item &a);
+    //generates a random item based on item level
+    Item(size_t itemLevel);
 
     //alt constructor, player's fists
-    Item(size_t fistDamage);
-
-    //alt constructor, empty slot
-    Item(std::string nothing);
+    Item::Item(std::string leftorright, size_t fistDamage);
 
     //returns the item's damage
     size_t getDam();
@@ -56,20 +71,12 @@ public:
     //returns the item's protection
     size_t getAC();
 
-    //returns the item's usages
-    int getUses();
-
     //reduces the item's usage, and
     //if it changes zero, adds the "Broken"
     //modifier to the beginning of the item
     //and cuts all stats in half. (Uses are then
     //upped to 1 so the broken item can be used).
     void useItem();
-
-    //Breaks the item, adds the "Broken"
-    //modifier to the beginning of the item
-    //and cuts all stats in half.
-    void breakItem();
 
 };
 
