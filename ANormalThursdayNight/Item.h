@@ -19,7 +19,7 @@
 //First 32 are mainly weapons growing in potential strength,
 //next 24 are mainly armors growing in potential armor,
 //next 19 are miscellaneous growing in both.
-const size_t BASENAMESSIZE = 75;
+const size_t BASENAMESSIZE = 76;
 const std::string BASENAMES[BASENAMESSIZE] = {"Pillow", "Severed Head", "Thumbtack", "Stale Bread",
                                               "Pencil", "Tennis Ball", "Stone", "Fly Swatter", "Baseball Bat",
                                               "Guitar", "Waffle Iron", "Saxophone", "Bowling Ball", "Whip",
@@ -32,9 +32,9 @@ const std::string BASENAMES[BASENAMESSIZE] = {"Pillow", "Severed Head", "Thumbta
                                               "Car Door", "Wooden Shield", "Leather Shield", "Shield", "Helmet", "Metal Boots",
                                               "Chain Mail", "Plate Mail", "Bulletproof Vest", "Flak Jacket", "Tooth",
                                               "Eyeball", "Femur", "Potato", "Stale Bread", "Rubik's Cube", "Pizza",
-                                              "Torch", "Laptop", "Water Gun", "Chopsticks", "Dirty Laundry", "Lamp",
-                                                "Chair", "Monkey", "Bad Attitude", "Positive Mindset", "Logical Thinking",
-                                                "Rational Argument"};
+                                              "Torch", "Buns", "Laptop", "Water Gun", "Chopsticks", "Dirty Laundry",
+                                              "Lamp", "Chair", "Monkey", "Bad Attitude", "Positive Mindset",
+                                              "Logical Thinking", "Rational Argument"};
 
 
 const std::string PREFIX[9] = {"Bent ", "Powerful ", "Glowing ", "Durable ",

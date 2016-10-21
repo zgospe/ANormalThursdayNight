@@ -70,9 +70,9 @@ bool fight(Character &player, Character &enemy) {
             std::cout << std::endl;
 
             if (enemyDamage > defend) {
-                std::cout << enemy.name << " deals " << (attackDamage - defend) << " to " << player.name << "." << std::endl;
+                std::cout << enemy.name << " deals " << (enemyDamage - defend) << " to " << player.name << "." << std::endl;
 
-                player.loseHP(attackDamage - defend);
+                player.loseHP(enemyDamage - defend);
                 std::cout << player.name << " is at " << player.getHP() << " health." << std::endl;
                 enemy.equip[choice].useItem();
             } else {
