@@ -17,18 +17,24 @@
 //Name arrays used to randomly generate names for items
 //BaseNames key: (80 Names)
 //First 32 are mainly weapons growing in potential strength,
-//next 32 are mainly armors growing in potential armor,
-//next 16 are miscellaneous growing in both.
-const size_t BASENAMESSIZE = 80;
-const std::string BASENAMES[BASENAMESSIZE] = {"Pillow", "Severed Head", "Thumbtack", "Stale Bread", "Pencil", "Tennis Ball",
-                                  "Stone", "Fly Swatter", "Baseball Bat", "Guitar", "Waffle Iron", "Saxophone",
-                                  "Bowling Ball", "Whip", "Brass Knuckles", "Steak Knife", "Tazer", "Pickaxe",
-                                  "Mace", "Sword", "Lance", "Rapier", "Broadsword", "Pistol", "Musket", "Rifle",
-                                  "Holy Cross", "Holy Hand Grenade", "Sniper Rifle", "Lazer Gun", "RPG Launcher",
-                                    "Holy Bible", "Pizza Box", "Sweater", "Boxers", "Shorts", "Sweatpants", "Bucket",
-                                    "Scarf", "Raincoat", "Trench Coat", "Leather Jacket", "Board", "Medal of Honor",
-                                    "Plastic Cup", "Umbrella", "Car Door", "Wooden Shield", "Leather Shield", "Shield",
-                                    "Helmet", "Metal Boots", "Chain Mail", "Plate Mail", "Bulletproof Vest", "Flak Jacket",;
+//next 24 are mainly armors growing in potential armor,
+//next 19 are miscellaneous growing in both.
+const size_t BASENAMESSIZE = 75;
+const std::string BASENAMES[BASENAMESSIZE] = {"Pillow", "Severed Head", "Thumbtack", "Stale Bread",
+                                              "Pencil", "Tennis Ball", "Stone", "Fly Swatter", "Baseball Bat",
+                                              "Guitar", "Waffle Iron", "Saxophone", "Bowling Ball", "Whip",
+                                              "Brass Knuckles", "Steak Knife", "Tazer", "Pickaxe",
+                                              "Mace", "Sword", "Lance", "Rapier", "Broadsword", "Pistol", "Musket",
+                                              "Rifle", "Holy Cross", "Holy Hand Grenade", "Sniper Rifle", "Lazer Gun",
+                                              "RPG Launcher", "Holy Bible", "Pizza Box", "Sweater", "Boxers", "Shorts",
+                                              "Sweatpants", "Bucket", "Scarf", "Raincoat", "Trench Coat",
+                                              "Leather Jacket", "Board", "Medal of Honor", "Plastic Cup", "Umbrella",
+                                              "Car Door", "Wooden Shield", "Leather Shield", "Shield", "Helmet", "Metal Boots",
+                                              "Chain Mail", "Plate Mail", "Bulletproof Vest", "Flak Jacket", "Tooth",
+                                              "Eyeball", "Femur", "Potato", "Stale Bread", "Rubik's Cube", "Pizza",
+                                              "Torch", "Laptop", "Water Gun", "Chopsticks", "Dirty Laundry", "Lamp",
+                                                "Chair", "Monkey", "Bad Attitude", "Positive Mindset", "Logical Thinking",
+                                                "Rational Argument"};
 
 
 const std::string PREFIX[9] = {"Bent ", "Powerful ", "Glowing ", "Durable ",
@@ -54,7 +60,9 @@ private:
     //and cuts all stats in half.
     void breakItem();
 
-    void baseNameModifier(size_t baseName);
+    //adds the stat modifiers for the base name
+    //helper method
+    void baseNameModifier();
 
 public:
     std::string name;
@@ -63,7 +71,7 @@ public:
     Item(size_t itemLevel);
 
     //alt constructor, player's fists
-    Item::Item(std::string leftorright, size_t fistDamage);
+    Item(std::string leftorright, size_t fistDamage);
 
     //returns the item's damage
     size_t getDam();

@@ -20,7 +20,7 @@ private:
 
 public:
     //item slots
-    Item equip[4];
+    Item equip[4] = {Item("Right", baseDam), Item("Left", baseDam), Item(0), Item(0)};
 
     std::string name = "";
 

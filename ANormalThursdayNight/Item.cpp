@@ -9,22 +9,7 @@
 //randomly generates an item
 Item::Item(size_t itemLevel) : dam(itemLevel / 2), ac(itemLevel / 3), uses(3)
 {
-    //Choose the base item name
-    size_t base = rand() % BASENAMESSIZE;
-    name = BASENAMES[base];
-
-    //Give basics stats dependent
-    //on the base name;
-    if (base == 0 || base == 1
-           || base == 2 || base == 10
-                || base == 14 || base == 15) {
-        dam += size_t(rand() % 3) + 2;
-    } else if (base == 3  || base == 4
-                    || base == 6 || base == 11
-                        || base == 13) {
-        dam += rand() % 3;
-        ac = size_t(rand() % 5) + 5;
-    }
+    baseNameModifier();
 
     //Choose suffix:
     size_t suff = rand() % (SUFFIXSIZE * 2);
@@ -118,7 +103,7 @@ Item::Item(std::string leftorright, size_t fistDamage) :
 {
 }
 
-void Item::baseNameModifier(size_t baseName) {
+void Item::baseNameModifier() {
     //Choose the base item name
     size_t base = rand() % BASENAMESSIZE;
     name = BASENAMES[base];
@@ -126,15 +111,16 @@ void Item::baseNameModifier(size_t baseName) {
     //Give basics stats dependent
     //on the base name;
 
-    //
-    if (base == 0 || base == 1
-        || base == 2 || base == 10
-        || base == 14 || base == 15) {
-        dam += size_t(rand() % 3) + 2;
-    } else if (base == 3  || base == 4
-               || base == 6 || base == 11
-               || base == 13) {
-        dam += rand() % 3;
-        ac = size_t(rand() % 5) + 5;
+    //weapon names
+    if (base < 32) {
+        dam += 1;
+        dam += base / 4;
+    } else if (base < 56) {
+        ac += 1;
+        ac += (base - 32) / 6;
+    } else {
+        dam += rand() % (base - 55);
+        ac += rand() % (base - 55);
+        uses--;
     }
 }

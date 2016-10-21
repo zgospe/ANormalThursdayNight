@@ -10,10 +10,6 @@ Character::Character(int health, size_t armor, size_t damage) :
             ac(armor),
             baseDam(damage)
 {
-    equip[0] = Item("Right", baseDam);
-    equip[1] = Item("Left", baseDam);
-    equip[2] = Item(baseDam);
-    equip[3] = Item(baseDam);
 }
 
 //puts 2-4 items in a player's equip slots
