@@ -23,13 +23,13 @@ void Character::randomEquipment(size_t itemLevel) {
     if (itemCount > 15) {
         equip [1] = Item(itemLevel);
     } else {
-        equip[1].name = name + "'s Left " + equip[1].name;
+        equip[1].name = name + "'s " + equip[1].name;
     }
 
     if (itemCount == 20) {
         equip[0] = Item(itemLevel);
     } else {
-        equip[0].name = name + "'s Right " + equip[0].name;
+        equip[0].name = name + "'s " + equip[0].name;
     }
 }
 
