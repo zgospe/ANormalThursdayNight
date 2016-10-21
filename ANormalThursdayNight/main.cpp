@@ -5,6 +5,8 @@
 void intro(Character &player);
 bool fight(Character &player, Character &enemy);
 void aftermath(Character &player, Character &enemy);
+int askForInput(int lb, int ub);
+std::string askForInput();
 
 int main() {
     std::srand ((unsigned int)time(0));
@@ -30,8 +32,7 @@ bool fight(Character &player, Character &enemy) {
     while (player.getHP() > 0 && enemy.getHP() > 0) {
         std::cout << "Would you like to attack with:" << std::endl;
         player.showAttackInv();
-        size_t choice;
-        std::cin >> choice;
+        size_t choice = (size_t) askForInput(1, 4);
         choice -= 1;
         size_t attackDamage = player.attack(choice);
         std::cout << std::endl;
@@ -63,8 +64,7 @@ bool fight(Character &player, Character &enemy) {
                       << " (Attack: " << enemy.equip[choice].getDam() << " )" << std::endl;
             std::cout << "How would you like to defend?" << std::endl;
             player.showDefenseInv();
-            size_t defend;
-            std::cin >> defend;
+            size_t defend = (size_t) askForInput(1, 4);
             defend -= 1;
             defend = player.equip[defend].getAC() + player.getAC();
             std::cout << std::endl;
@@ -95,8 +95,7 @@ void intro(Character &player) {
     std::cout << "Welcome to A NORMAL THURSDAY NIGHT!" << std::endl;
     std::cout << "What is your name? ";
 
-    std::cin >> player.name;
-    std::cout << std::endl;
+    player.name = askForInput();
 
     std::cout << "It is a Thursday, and " << player.name << " is feeling quite bored." << std::endl;
     std::cout << player.name << " decides to laugh at Satan." << std::endl;
@@ -118,8 +117,7 @@ void aftermath(Character &player, Character &enemy) {
     std::cout << "Which item would you like to take?" << std::endl;
     enemy.showInventory();
     std::cout << "Or press 0 to take nothing." << std::endl;
-    size_t echoice;
-    std::cin >> echoice;
+    int echoice = askForInput(0, 4);
 
     if (echoice != 0) {
         echoice -= 1;
@@ -127,11 +125,60 @@ void aftermath(Character &player, Character &enemy) {
 
         std::cout << "Which slot would you like to store it in?" << std::endl;
         player.showInventory();
-        size_t slot;
-        std::cin >> slot;
+        size_t slot = size_t (askForInput(1, 4));
         slot -= 1;
         std::cout << std::endl;
 
         player.equipItem(slot, enemy.equip[echoice]);
     }
+}
+
+//asks user to input
+int askForInput(int lb, int ub) {
+
+    int choice;
+
+    bool cond = false;
+
+    do
+    {
+        std::cin >> choice;
+
+        if (std::cin.fail() || choice < lb || choice > ub) {
+            std::cout << "Not a valid input. Try again." << std::endl;
+        } else {
+            cond = true;
+        }
+
+        std::cin.clear();
+        std::cin.ignore();
+
+    }while(!cond);
+    std::cout << std::endl;
+
+    return choice;
+}
+
+std::string askForInput() {
+
+    std::string choice;
+
+    bool cool = false;
+
+    while (!cool) {
+
+        std::cin >> choice;
+
+        if (std::cin.fail()) {
+            std::cout << "Not a valid input. Try again." << std::endl;
+        } else {
+            cool = true;
+        }
+
+        std::cin.clear();
+        std::cin.ignore();
+    }
+
+    std::cout << std::endl;
+    return choice;
 }
