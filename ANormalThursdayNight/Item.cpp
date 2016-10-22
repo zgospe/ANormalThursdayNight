@@ -6,60 +6,39 @@
 #include <iostream>
 #include <ctime>
 
+//Name arrays used to randomly generate names for items
+
 //randomly generates an item
-Item::Item(size_t itemLevel) : dam(itemLevel / 2), ac(itemLevel / 3), uses(3)
+Item::Item(size_t itemLevel, const Modifier baseName[],
+                                const Modifier prefixName[],
+                                    const Modifier suffixName[]) :
+        //bmi
+        dam(rand() % ((itemLevel / 2) + 4)),
+        ac(rand() % ((itemLevel / 2) + 4)),
+        uses(3), name("")
 {
-    baseNameModifier();
 
-    //Choose suffix:
-    size_t suff = rand() % (SUFFIXSIZE * 2);
-    if (suff < SUFFIXSIZE) {
-        name += SUFFIX[suff];
+    //pick mod
+    size_t baseMod = rand() % BASENAMESSIZE;
 
-        //Modifier
-        if (suff == 0 || suff == 3
-                || suff == 4 || suff == 7) {
-            dam += 2;
-        }
+    //modify
+    modify(baseName[baseMod]);
 
-        if (suff == 1 || suff == 3
-            || suff == 5 ) {
-            ac += 3;
-        }
+    //pick aux mods
+    int otherMods = rand() % 100;
 
-        if (suff == 2 || suff == 6 || suff == 7) {
-            if (suff == 2) uses *= 2;
-            uses *= 1.5;
-        }
+    if (otherMods >= 10 && otherMods < 50) {
+        size_t suffMod = rand() % SNAMESSIZE;
+        modify(suffixName[suffMod]);
+    } else if (otherMods >= 50 || otherMods < 90) {
+        size_t preMod = rand() % PNAMESSIZE;
+        modify(prefixName[preMod]);
+    } else if (otherMods >= 90) {
+        size_t preMod = rand() % PNAMESSIZE;
+        size_t suffMod = rand() % SNAMESSIZE;
 
-        if (suff == 5) {
-            uses = 1;
-            dam += 10;
-        }
-    }
-
-    //Choose Prefix
-    size_t pref = rand() % (PREFIXSIZE * 3);
-    if (pref < PREFIXSIZE) {
-        name = PREFIX[pref] + name;
-
-        //Modifier
-        if (suff == 1 || suff == 2
-            || suff == 5 || suff == 8) {
-            dam += 5;
-        }
-
-        if (suff == 0 || suff == 6 ) {
-            dam /= 2;
-        }
-
-        if (suff == 4 || suff == 5 || suff == 7) {
-            ac += 3;
-        }
-
-        if (suff == 2 || suff == 3 || suff == 7 || suff == 8) {
-            uses += 5;
-        }
+        modify(suffixName[suffMod]);
+        modify(prefixName[preMod]);
     }
 }
 
@@ -103,24 +82,34 @@ Item::Item(std::string leftorright, size_t fistDamage) :
 {
 }
 
-void Item::baseNameModifier() {
-    //Choose the base item name
-    size_t base = rand() % BASENAMESSIZE;
-    name = BASENAMES[base];
+void Item::setDam(size_t newDam) {
+    dam = newDam;
+}
 
-    //Give basics stats dependent
-    //on the base name;
+void Item::setAC(size_t newAC) {
+    ac = newAC;
+}
 
-    //weapon names
-    if (base < 32) {
-        dam += 1;
-        dam += base / 4;
-    } else if (base < 56) {
-        ac += 1;
-        ac += (base - 32) / 6;
-    } else {
-        dam += rand() % (base - 55);
-        ac += rand() % (base - 55);
-        uses--;
-    }
+void Item::setUse(int newUse) {
+    uses = newUse;
+}
+
+void Item::modify(Modifier a) {
+
+        if (a.getType() == 0) {
+            name = a.getName() + " " + name;
+        } else if (a.getType() ==  1) {
+            name = a.getName();
+        } else {
+            name += " " + a.getName();
+        }
+
+        dam *= a.getDamMult();
+        dam += a.getDamPlus();
+
+        ac *= a.getDamMult();
+        ac += a.getDamPlus();
+
+        uses += a.getUsePlus();
+
 }
