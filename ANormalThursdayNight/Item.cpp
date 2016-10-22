@@ -85,7 +85,7 @@ Item::Item(std::string leftorright, size_t fistDamage) :
                                 name(leftorright + " Fist"),
                                 dam(fistDamage),
                                 uses(3),
-                                ac(0),
+                                ac(1),
                                 itemLevel(fistDamage)
 {
 }

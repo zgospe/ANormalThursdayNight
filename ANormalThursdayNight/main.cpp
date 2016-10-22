@@ -3,7 +3,8 @@
 
 void intro(Character &player);
 bool fight(Character &player, Character &enemy);
-void aftermath(Character &player, Character &enemy);
+void battle (Character & atk, Character & def, Item & atkWep, Item & defWep);
+void takeItem(Character &player, Character &enemy);
 int askForInput(int lb, int ub);
 std::string askForInput();
 
@@ -20,12 +21,12 @@ int main() {
 
     while (player.getHP() > 0) {
         //create enemy based on player's experience points
-        Character enemy = Character((int)player.getXP() + 4, player.getXP() / 4 + 1, player.getXP() / 4 + 1);
+        Character enemy = Character((int)player.getXP() + 4, player.getXP() / 2 + 1, player.getXP() / 2 + 1);
 
         enemy.name = "Demon " + std::to_string((player.getXP() + 1));
         enemy.randomEquipment(player.getXP());
         if (fight(player, enemy)) {
-            aftermath(player, enemy);
+            takeItem(player, enemy);
         }
     }
 
@@ -37,57 +38,36 @@ bool fight(Character &player, Character &enemy) {
     std::cout << player.name << " VS " << enemy.name << "!" << std::endl;
 
     while (player.getHP() > 0 && enemy.getHP() > 0) {
-        std::cout << "Would you like to attack with:" << std::endl;
+        //player chooses weapon
+        std::cout << "What would you like to attack with:" << std::endl;
         player.showAttackInv();
-        size_t choice = (size_t) askForInput(1, 4);
-        choice -= 1;
-        size_t attackDamage = player.attack(choice);
+        size_t choice = (size_t) askForInput(1, 4) - 1;
 
         std::cout << player.name << " attacks with " << player.equip[choice].name << "." << std::endl;
         std::cout << std::endl;
+
+        //enemy chooses defense weapon
         size_t eChoice = (size_t)(rand() % 4);
         std::cout << enemy.name << " defends with " << enemy.equip[eChoice].name << "." << std::endl;
-        size_t eDefend = enemy.equip[eChoice].getAC();
-        eDefend += enemy.getAC();
-        if (attackDamage > eDefend) {
-            std::cout << player.name << " deals " << (attackDamage - eDefend) << " to " << enemy.name << "." << std::endl;
-
-            enemy.loseHP(attackDamage - eDefend);
-            std::cout << enemy.name << " is at " << enemy.getHP() << " health." << std::endl;
-            player.equip[choice].useItem();
-        } else {
-            std::cout << player.name << "'s attack is ineffective!" << std:: endl;
-            player.equip[choice].useItem();
-        }
-        enemy.equip[eChoice].useItem();
-
         std::cout << std::endl;
-        if (enemy.getHP() > 0) {
-            //enemy's turn
-            choice = (size_t) rand() % 4;
-            size_t enemyDamage = enemy.attack(choice);
 
-            std::cout << enemy.name << " attacks with " << enemy.equip[choice].name
-                      << " (Attack: " << enemy.equip[choice].getDam() << ")" << std::endl;
+        battle(player, enemy, player.equip[choice], enemy.equip[eChoice]);
+
+        if (enemy.getHP() > 0) {
+            //enemy's turn, chooses weapon
+            eChoice = (size_t) rand() % 4;
+            std::cout << enemy.name << " attacks with " << enemy.equip[eChoice].name
+                      << " (Attack: " << enemy.equip[eChoice].getDam() << ")" << std::endl;
+
+            //choose defense
             std::cout << "How would you like to defend?" << std::endl;
             player.showDefenseInv();
-            size_t defend = (size_t) askForInput(1, 4);
-            defend -= 1;
-            size_t totDef = player.equip[defend].getAC() + player.getAC();
+            size_t defend = (size_t) askForInput(1, 4) - 1;
 
-            if (enemyDamage > totDef) {
-                std::cout << enemy.name << " deals " << (enemyDamage - totDef) << " to " << player.name << "." << std::endl;
-
-                player.loseHP(enemyDamage - totDef);
-                std::cout << player.name << " is at " << player.getHP() << " health." << std::endl;
-                enemy.equip[choice].useItem();
-            } else {
-                std::cout << enemy.name << "'s attack is ineffective!" << std::endl;
-                enemy.equip[choice].useItem();
-            }
-            player.equip[defend].useItem();
+            //battle between them with chosen weapons
+            battle(enemy, player, enemy.equip[eChoice], player.equip[defend]);
         }
-    } //end the battle
+    } //someone is dead
 
     if (enemy.getHP() <= 0) {
         player.addXP();
@@ -119,21 +99,20 @@ void intro(Character &player) {
     std::cout << std::endl;
 }
 
-void aftermath(Character &player, Character &enemy) {
+void takeItem(Character &player, Character &enemy) {
     std::cout << "Which item would you like to take?" << std::endl;
     enemy.showInventory();
     std::cout << "Or press 0 to take nothing." << std::endl;
-    int echoice = askForInput(0, 4);
+    int choice = askForInput(0, 4);
 
-    if (echoice != 0) {
-        echoice -= 1;
+    if (choice != 0) {
+        choice -= 1; //move to 0 based indexing
 
         std::cout << "Which slot would you like to store it in?" << std::endl;
         player.showInventory();
-        size_t slot = size_t (askForInput(1, 4));
-        slot -= 1;
+        size_t slot = size_t (askForInput(1, 4)) - 1;
 
-        player.equipItem(slot, enemy.equip[echoice]);
+        player.equipItem(slot, enemy.equip[choice]);
     }
 }
 
@@ -185,4 +164,30 @@ std::string askForInput() {
 
     std::cout << std::endl;
     return choice;
+}
+
+void battle (Character & atk, Character & def, Item & atkWep, Item & defWep) {
+
+    //defence value
+    size_t eDefend = defWep.getAC() + def.getAC();
+    //attack value
+    size_t attackDamage = atk.attack(atkWep);
+
+    if (attackDamage > eDefend) { //if damage goes through
+        std::cout << atk.name << " deals " << (attackDamage - eDefend) << " to " << def.name << "." << std::endl;
+
+        def.loseHP(attackDamage - eDefend);
+        std::cout << def.name << " is at " << def.getHP() << " health." << std::endl;
+
+    } else { //attack blocked
+
+        std::cout << atk.name << "'s attack is ineffective!" << std:: endl;
+
+    }
+
+    //use charges of both items
+    atkWep.useItem();
+    defWep.useItem();
+    std::cout << std::endl;
+
 }

@@ -42,8 +42,8 @@ size_t Character::getAC() {
     return ac;
 }
 
-size_t Character::attack(size_t weaponSlot) {
-    return baseDam + equip[weaponSlot].getDam();
+size_t Character::attack(Item weapon) {
+    return baseDam + weapon.getDam();
 }
 
 void Character::equipItem(size_t itemSlot, Item a) {

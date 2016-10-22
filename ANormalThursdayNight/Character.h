@@ -16,7 +16,7 @@ private:
     int hp;
     int xp = 0;
     size_t ac;
-    size_t baseDam = 0;
+    size_t baseDam;
 
 public:
     //item slots
@@ -38,7 +38,7 @@ public:
 
     size_t getAC();
 
-    size_t attack(size_t itemSlot);
+    size_t attack(Item weapon);
 
     void equipItem(size_t itemSlot, Item a);
 
