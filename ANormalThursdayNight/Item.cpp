@@ -55,8 +55,7 @@ void Item::useItem() {
     uses--;
 
     if (uses <= 0) {
-        (*this).breakItem();
-        uses = 5;
+        breakItem();
     }
 }
 
@@ -67,7 +66,17 @@ void Item::useItem() {
 void Item::breakItem() {
     dam /= 2;
     ac /= 2;
-    name = "Broken " + name;
+    uses = 2;
+
+    std::cout << name << " breaks!" << std::endl;
+
+    if (name.substr(0, 6) == "Broken" || name.substr(0, 6) == "Very B") {
+        name = "Very " + name;
+    } else if (name.substr(0, 9) == "Very Very"){
+        name = "Garbage With Sentimental Value";
+    } else {
+        name = "Broken " + name;
+    }
 }
 
 //for empty weapon slots, makes a left or right fist

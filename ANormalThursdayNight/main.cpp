@@ -45,9 +45,9 @@ bool fight(Character &player, Character &enemy) {
 
         std::cout << player.name << " attacks with " << player.equip[choice].name << "." << std::endl;
         std::cout << std::endl;
-        size_t eDefend = (size_t)(rand() % 4);
-        std::cout << enemy.name << " defends with " << enemy.equip[eDefend].name << "." << std::endl;
-        eDefend = enemy.equip[eDefend].getAC();
+        size_t eChoice = (size_t)(rand() % 4);
+        std::cout << enemy.name << " defends with " << enemy.equip[eChoice].name << "." << std::endl;
+        size_t eDefend = enemy.equip[eChoice].getAC();
         eDefend += enemy.getAC();
         if (attackDamage > eDefend) {
             std::cout << player.name << " deals " << (attackDamage - eDefend) << " to " << enemy.name << "." << std::endl;
@@ -59,6 +59,7 @@ bool fight(Character &player, Character &enemy) {
             std::cout << player.name << "'s attack is ineffective!" << std:: endl;
             player.equip[choice].useItem();
         }
+        enemy.equip[eChoice].useItem();
 
         std::cout << std::endl;
         if (enemy.getHP() > 0) {
@@ -72,12 +73,12 @@ bool fight(Character &player, Character &enemy) {
             player.showDefenseInv();
             size_t defend = (size_t) askForInput(1, 4);
             defend -= 1;
-            defend = player.equip[defend].getAC() + player.getAC();
+            size_t totDef = player.equip[defend].getAC() + player.getAC();
 
-            if (enemyDamage > defend) {
-                std::cout << enemy.name << " deals " << (enemyDamage - defend) << " to " << player.name << "." << std::endl;
+            if (enemyDamage > totDef) {
+                std::cout << enemy.name << " deals " << (enemyDamage - totDef) << " to " << player.name << "." << std::endl;
 
-                player.loseHP(enemyDamage - defend);
+                player.loseHP(enemyDamage - totDef);
                 std::cout << player.name << " is at " << player.getHP() << " health." << std::endl;
                 enemy.equip[choice].useItem();
             } else {
