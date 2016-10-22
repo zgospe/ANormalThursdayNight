@@ -5,11 +5,12 @@
       <sourceFolder url="file://$MODULE_DIR$/Modifier.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Modifier.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Item.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Character.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Item.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Character.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ModifierList.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Item.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Item.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Character.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

@@ -16,19 +16,17 @@ private:
     int hp;
     int xp = 0;
     size_t ac;
-    size_t baseDam = 2;
+    size_t baseDam = 0;
 
 public:
     //item slots
-    Item equip[4] = {Item("Right", baseDam), Item("Left", baseDam), Item("Left", baseDam), Item("Left", baseDam)};
+    Item equip[4] = {Item("Right", baseDam), Item("Left", baseDam), Item(0), Item(0)};
 
     std::string name = "";
 
     Character(int health, size_t armor, size_t damage);
 
-    void randomEquipment(size_t itemLevel, const Modifier baseName[],
-                                            const Modifier prefixName[],
-                                            const Modifier suffixName[]);
+    void randomEquipment(size_t itemLevel);
 
     int getHP();
 

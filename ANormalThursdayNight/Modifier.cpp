@@ -82,4 +82,14 @@ double Modifier::getACMult() {
     return acMult;
 }
 
+Modifier::Modifier(size_t t, std::string nom, int dP, int aP, int uP, double dM, double aM):
+                    name(nom), type(t),
+                    damPlus(dP), acPlus(aP),
+                    usePlus(uP), damMult(dM),
+                    acMult(aM)
+{
+    //nothing left to do
+}
+
+
 

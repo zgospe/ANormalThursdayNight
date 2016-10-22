@@ -13,24 +13,22 @@ Character::Character(int health, size_t armor, size_t damage) :
 }
 
 //puts 2-4 items in a player's equip slots
-void Character::randomEquipment(size_t itemLevel, const Modifier b[],
-                                const Modifier p[],
-                                const Modifier s[]) {
+void Character::randomEquipment(size_t itemLevel) {
 
     size_t itemCount = (size_t)rand() % 20;
 
-        equip[3] = Item(itemLevel, b, p, s);
+        equip[3] = Item(itemLevel);
 
-        equip [2] = Item(itemLevel, b, p, s);
+        equip [2] = Item(itemLevel);
 
     if (itemCount > 15) {
-        equip [1] = Item(itemLevel, b, p, s);
+        equip [1] = Item(itemLevel);
     } else {
         equip[1].name = name + "'s " + equip[1].name;
     }
 
     if (itemCount == 20) {
-        equip[0] = Item(itemLevel, b, p, s);
+        equip[0] = Item(itemLevel);
     } else {
         equip[0].name = name + "'s " + equip[0].name;
     }

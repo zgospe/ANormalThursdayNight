@@ -10,11 +10,6 @@
 
 #include <string>
 
-//side of modifier arrays
-const size_t BASENAMESSIZE = 46;
-const size_t PNAMESSIZE = 20;
-const size_t SNAMESSIZE = 11;
-
 class Modifier {
 
 private:
@@ -38,6 +33,10 @@ public:
 
     //Constructor
     Modifier();
+
+    //Complete Constructor
+    Modifier(size_t t, std::string nom, int dP,
+             int aP, int uP, double dM, double aM);
 
     void setName(std::string name);
 

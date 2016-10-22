@@ -13,7 +13,7 @@
 
 #include <string>
 #include <random>
-#include "Modifier.h"
+#include "ModifierList.h"
 
 class Item {
 
@@ -35,7 +35,7 @@ public:
 
     //generates a random item based on item level
     //using the arrays of potential modifiers
-    Item(size_t itemLevel, const Modifier baseName[], const Modifier prefixName[], const Modifier suffixName[]);
+    Item(size_t itemLevel);
 
     //alt constructor, player's fists
     Item(std::string leftorright, size_t fistDamage);

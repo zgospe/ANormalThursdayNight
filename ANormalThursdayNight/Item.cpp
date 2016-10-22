@@ -6,39 +6,38 @@
 #include <iostream>
 #include <ctime>
 
-//Name arrays used to randomly generate names for items
-
 //randomly generates an item
-Item::Item(size_t itemLevel, const Modifier baseName[],
-                                const Modifier prefixName[],
-                                    const Modifier suffixName[]) :
+Item::Item(size_t itemLevel) :
         //bmi
-        dam(rand() % ((itemLevel / 2) + 4)),
-        ac(rand() % ((itemLevel / 2) + 4)),
+        dam(rand() % (itemLevel / 2 + 2)),
+        ac(rand() % (itemLevel / 2 + 2)),
         uses(3), name("")
 {
 
     //pick mod
     size_t baseMod = rand() % BASENAMESSIZE;
 
+
     //modify
-    modify(baseName[baseMod]);
+    modify(baseNames[baseMod]);
 
     //pick aux mods
     int otherMods = rand() % 100;
+    //more likely to get rare items as game goes on
+    otherMods += itemLevel / 2;
 
-    if (otherMods >= 10 && otherMods < 50) {
+    if (otherMods >= 50 && otherMods < 70) {
         size_t suffMod = rand() % SNAMESSIZE;
-        modify(suffixName[suffMod]);
-    } else if (otherMods >= 50 || otherMods < 90) {
+        modify(suffixNames[suffMod]);
+    } else if (otherMods >= 70 || otherMods < 90) {
         size_t preMod = rand() % PNAMESSIZE;
-        modify(prefixName[preMod]);
+        modify(prefixNames[preMod]);
     } else if (otherMods >= 90) {
         size_t preMod = rand() % PNAMESSIZE;
         size_t suffMod = rand() % SNAMESSIZE;
 
-        modify(suffixName[suffMod]);
-        modify(prefixName[preMod]);
+        modify(suffixNames[suffMod]);
+        modify(prefixNames[preMod]);
     }
 }
 
@@ -107,8 +106,8 @@ void Item::modify(Modifier a) {
         dam *= a.getDamMult();
         dam += a.getDamPlus();
 
-        ac *= a.getDamMult();
-        ac += a.getDamPlus();
+        ac *= a.getACMult();
+        ac += a.getACPlus();
 
         uses += a.getUsePlus();
 
