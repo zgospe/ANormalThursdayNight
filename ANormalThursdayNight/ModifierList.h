@@ -49,7 +49,7 @@ const Modifier baseNames[BASENAMESSIZE] = {
         Modifier(1, "Chain Mail", 0, 5, 1, 0, 1.5),
         Modifier(1, "Plate Mail", 0, 7, 1, 0, 1.5),
         Modifier(1, "Bulletproof Vest", 0, 8, 0, 0, 1.5),
-        Modifier(1, "Flak Jacket", 0, 15, -1, 0, 1.5),
+        Modifier(1, "Flak Jacket", 0, 8, -1, 0, 2),
         Modifier(1, "Eyeball", 0, 0, 0, .25, 0),
         Modifier(1, "Femur", 1, 0, 0, .25, .25),
         Modifier(1, "Potato", 1, 1, 1, .25, .25),

@@ -24,14 +24,16 @@ Item::Item(size_t itemLevel) :
     //pick aux mods
     int otherMods = rand() % 100;
     //more likely to get rare items as game goes on
-    otherMods += itemLevel / 2;
+    otherMods += itemLevel;
 
-    if (otherMods >= 50 && otherMods < 70) {
+    if (otherMods >= 70 && otherMods < 80) {
         size_t suffMod = rand() % SNAMESSIZE;
         modify(suffixNames[suffMod]);
-    } else if (otherMods >= 70 || otherMods < 90) {
+
+    } else if (otherMods >= 80 && otherMods < 90) {
         size_t preMod = rand() % PNAMESSIZE;
         modify(prefixNames[preMod]);
+
     } else if (otherMods >= 90) {
         size_t preMod = rand() % PNAMESSIZE;
         size_t suffMod = rand() % SNAMESSIZE;
@@ -84,8 +86,8 @@ void Item::breakItem() {
 Item::Item(std::string leftorright, size_t fistDamage) :
                                 name(leftorright + " Fist"),
                                 dam(fistDamage),
-                                uses(3),
-                                ac(1),
+                                uses(5),
+                                ac(0),
                                 itemLevel(fistDamage)
 {
 }

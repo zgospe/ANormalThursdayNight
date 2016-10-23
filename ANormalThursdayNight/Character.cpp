@@ -84,4 +84,62 @@ void Character::showAttackInv() {
     }
 }
 
+//determines if an object can be afforded (true/false),
+//and spends the required souls if so
+bool Character::spendSouls(size_t cost) {
+
+    if (souls >= cost) {
+        souls -= cost;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//changes xp into souls, sets xp to 0
+void Character::gainSouls() {
+
+    souls += xp;
+    xp = 0;
+
+}
+
+size_t Character::getSouls() {
+    return souls;
+}
+
+size_t Character::addDam() {
+    baseDam++;
+    return baseDam;
+}
+
+size_t Character::addAC() {
+    ac++;
+    return ac;
+}
+
+size_t Character::addToMaxHealth(size_t amount) {
+    return (maxHealth + amount);
+}
+
+size_t Character::getMaxHealth() {
+    return maxHealth;
+}
+
+void Character::increaseStartingIL(size_t amount) {
+    startingIL += amount;
+}
+
+size_t Character::getDam() {
+    return baseDam;
+}
+
+size_t Character::getStartingIL() {
+    return startingIL;
+}
+
+void Character::setHP(size_t amount) {
+    hp = (int)amount;
+}
+
 
