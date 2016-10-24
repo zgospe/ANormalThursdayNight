@@ -266,7 +266,7 @@ void shopTime (Character & player) {
                   << "1. Martial Arts Skill (5 souls) - increases base damage by one." << std::endl
                   << "2. Thick Skin (5 souls) - increases base armor by one." << std::endl
                   << "3. More Health (5 souls) - increases base health level by 5." << std::endl
-                  << "4. Better Starting Items (10 souls) - increases base item level by 3." << std::endl
+                  << "4. Better Starting Items (5 souls) - increases base item level by 3." << std::endl
                   << "0. Leave Shop." << std::endl;
         int choice = askForInput(0, 4);
 
@@ -292,7 +292,7 @@ void shopTime (Character & player) {
                 std::cout << "You cannot afford this item." << std::endl;
             }
         } else if (choice == 4) {
-            if (player.spendSouls(10)) {
+            if (player.spendSouls(5)) {
                 player.increaseStartingIL(3);
                 std::cout << "Your starting items will now, on average, be stronger." <<std::endl;
             } else {
@@ -303,6 +303,7 @@ void shopTime (Character & player) {
 
     } while (shopping);
 
+    //rebirth, reset player's equipment and health
     std::cout << player.name << "'s soul falls through the clouds and plummets back to Earth." << std::endl;
     std::cout << player.name << " is reborn!" << std::endl;
 

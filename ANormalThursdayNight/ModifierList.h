@@ -8,7 +8,7 @@
 #include "Modifier.h"
 
 //size of modifier arrays
-const size_t BASENAMESSIZE = 46;
+const size_t BASENAMESSIZE = 50;
 const size_t PNAMESSIZE = 20;
 const size_t SNAMESSIZE = 11;
 
@@ -29,11 +29,15 @@ const Modifier baseNames[BASENAMESSIZE] = {
         Modifier(1, "Pickaxe", 5, 0, 1, 1.25, .75),
         Modifier(1, "Steak Knife", 4, 0, 0, 1, 0.5),
         Modifier(1, "Mace", 5, 0, 1, 1.25, 1),
+        Modifier(1, "Icepick", 3, 0, 1, 1.25, 1),
+        Modifier(1, "Gatling Gun", 5, 0, 0, 1.75, 1),
+        Modifier(1, "Boomerang", 2, 0, 3, 1, 1),
+        Modifier(1, "Whip", 3, 0, 0, 1.5, 1),
         Modifier(1, "Sword", 3, 1, 1, 1.5, 1),
         Modifier(1, "Broadsword", 6, 2, 0, 1.5, 1),
         Modifier(1, "Hand Grenade", 10, 0, -1, 1.5, 0),
-        Modifier(1, "Sniper Rifle", 5, 0, 0, 1.5, .25),
-        Modifier(1, "Lazer Gun", 3, 0, 1, 1.5, .75),
+        Modifier(1, "Sniper Rifle", 5, 0, 0, 2, .25),
+        Modifier(1, "Lazer Gun", 3, 0, 1, 1.5, 1),
         Modifier(1, "RPG Launcher", 10, 0, -1, 1.5, .25),
         Modifier(1, "Bible", 0, 3, 0, 0.5, 1.75),
         Modifier(1, "Sweater", 0, 2, 0, 0, 1.25),
@@ -71,7 +75,7 @@ const Modifier prefixNames[PNAMESSIZE] = {
         Modifier(0, "Gargantuan", 3, 3, 1, 1.5, 1.5),
         Modifier(0, "Deadly", 5, 0, 0, 1.5, 1),
         Modifier(0, "Atomic", 10, 0, -1, 1.5, 0.5),
-        Modifier(0, "Legendary", 3, 3, 3, 1.5, 1.5),
+        Modifier(0, "Legendary", 3, 3, 0, 1.5, 1.5),
         Modifier(0, "Fireproof", 0, 3, 0, 1, 1.5),
         Modifier(0, "Titanium", 2, 2, 1, 1.25, 1.25),
         Modifier(0, "Dependable", 0, 5, 3, 1, 1),
